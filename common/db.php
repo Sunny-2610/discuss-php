@@ -1,4 +1,4 @@
-<?php
+<?php  
 $host ="localhost";
 $username="root";
 $password=null;
@@ -10,6 +10,5 @@ if($conn->connect_error){
     die("connection failed".$conn->connect_error);
 }
 
-echo "database connected";
 
 ?>
