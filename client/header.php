@@ -11,13 +11,17 @@
           <a class="nav-link active" aria-current="page" href="./">Home</a>
         </li>
 
-        <?php if ($_SESSION['user']['username']) { ?>
+        <?php 
+        // FIXED: Added isset() to avoid "Undefined index" warning
+        if (isset($_SESSION['user']['username'])) { ?> 
           <li class="nav-item">
-            <a class="nav-link" href="?login=true">Logout</a>
+            <a class="nav-link" href="./server/requests.php?logout=true">Logout</a>
           </li>
         <?php } ?>
 
-        <?php if (!$_SESSION['user']['username']) { ?>
+        <?php 
+        // FIXED: Added isset() to avoid undefined index check
+        if (!isset($_SESSION['user']['username'])) { ?> 
           <li class="nav-item">
             <a class="nav-link" href="?login=true">Login</a>
           </li>

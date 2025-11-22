@@ -9,14 +9,17 @@
 <body>
     <?php 
     session_start();
-    include('client/header.php'); ?>
+    include('client/header.php'); 
+    ?>
 
     <?php 
-    if (isset($_GET['login']) && !$_SESSION['user']['username']) {
+    // FIXED: Added isset() check before accessing $_SESSION['user']['username']
+    if (isset($_GET['login']) && (!isset($_SESSION['user']['username']) || empty($_SESSION['user']['username']))) {
         include('client/login.php');
     }
 
-    if (isset($_GET['signup'] ) && !$_SESSION['user']['username']) {
+    // FIXED: Same issue here, applied same condition
+    if (isset($_GET['signup']) && (!isset($_SESSION['user']['username']) || empty($_SESSION['user']['username']))) {
         include('client/signup.php');
     }
     ?>
