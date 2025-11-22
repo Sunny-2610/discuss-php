@@ -16,9 +16,10 @@ if(isset($_POST['signup'])) {
     ");
 
     $result=  $user->execute();  
+    $user->insert_id;
 
     if ($result) {
-        $_SESSION["user"] = ["username"=>$username,"email"=>$email];
+        $_SESSION["user"] = ["username"=>$username,"email"=>$email ,"user_id"=>$user->insert_id];
         header("location: /Discuss");
     } else {
         echo "New user not registered";
@@ -29,6 +30,7 @@ if(isset($_POST['signup'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $username="";
+    $user_id="";
 
     $query = "select * from users where email='$email' and password='$password'";      
     $result = $conn->query($query);
@@ -36,9 +38,10 @@ if(isset($_POST['signup'])) {
     if ($result->num_rows==1) {
         foreach ($result as $row) {
             $username = $row['username'];
+            $user_id = $row['id'];
         }
 
-        $_SESSION["user"] = ["username"=>$username,"email"=>$email];
+        $_SESSION["user"] = ["username"=>$username,"email"=>$email,"user_id"=>$user_id];
         header("location: /Discuss");
 
     } else {
@@ -48,5 +51,26 @@ if(isset($_POST['signup'])) {
 } else if (isset($_GET['logout'])) {  // <-- logout condition
     session_unset();
     header("location: /Discuss");
-}
+
+} else if (isset($_POST["ask"])) {
+
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $category_id = $_POST['category'];
+    $user_id = $_SESSION['user']['user_id'];
+
+    $question = $conn->prepare("INSERT into `questions`
+    (`id`,`title`,`description`,`category_id`,`user_id`)
+    VALUES (NULL,'$title','$description','$category_id','$user_id')");
+    
+    $result = $question->execute();
+    $question->insert_id;
+
+    if ($result) {
+        header("location: /discuss");
+    } else {
+        echo "Question is added to website";
+    }
+
+} // <-- FIXED: Closing bracket added
 ?>
