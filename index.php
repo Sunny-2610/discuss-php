@@ -13,14 +13,16 @@
     ?>
 
     <?php 
-    // FIXED: Added isset() check before accessing $_SESSION['user']['username']
+    // FIXED: Added isset() check before accessing session value
     if (isset($_GET['login']) && (!isset($_SESSION['user']['username']) || empty($_SESSION['user']['username']))) {
         include('client/login.php');
     }
 
-    // FIXED: Same issue here, applied same condition
+    // FIXED: Added same condition check
     if (isset($_GET['signup']) && (!isset($_SESSION['user']['username']) || empty($_SESSION['user']['username']))) {
         include('client/signup.php');
+    } else if (isset($_GET['ask'])) {   // FIXED undefined index warning
+        include('./client/ask.php');
     }
     ?>
 </body>

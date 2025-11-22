@@ -12,11 +12,18 @@
         </li>
 
         <?php 
+        //when user have already loogged in
         // FIXED: Added isset() to avoid "Undefined index" warning
         if (isset($_SESSION['user']['username'])) { ?> 
           <li class="nav-item">
             <a class="nav-link" href="./server/requests.php?logout=true">Logout</a>
           </li>
+        <li class="nav-item">
+            <a class="nav-link" href="?ask=true">Ask A Question</a>
+          </li>
+
+
+
         <?php } ?>
 
         <?php 
