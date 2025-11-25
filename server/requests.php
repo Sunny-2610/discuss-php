@@ -23,6 +23,7 @@ if(isset($_POST['signup'])) {
         header("location: /Discuss");
     } else {
         echo "New user not registered";
+        
     }
 
 } else if (isset($_POST['login'])) {
