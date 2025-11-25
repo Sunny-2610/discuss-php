@@ -23,9 +23,14 @@
         include('client/signup.php');
     } else if (isset($_GET['ask'])) {   // FIXED undefined index warning
         include('./client/ask.php');
-    } else {
-        include('./client/questions.php');
+    } else if (isset($_GET['q-id'])) {
+        $qid = $_GET['q-id'];
+        include('./client/question-details.php');
     }
+    
+    else {
+        include('./client/questions.php');
+    }    
     ?>  
 </body>
 </html>
