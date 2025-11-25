@@ -26,9 +26,10 @@
     } else if (isset($_GET['q-id'])) {
         $qid = $_GET['q-id'];
         include('./client/question-details.php');
-    }
-    
-    else {
+    } else if (isset($_GET['c-id'])) {   // FIXED syntax
+        $cid = $_GET['c-id'];
+        include('./client/questions.php');
+    } else {
         include('./client/questions.php');
     }    
     ?>  
