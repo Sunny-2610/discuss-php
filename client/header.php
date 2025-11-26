@@ -9,35 +9,41 @@
         <li class="nav-item">
           <a class="nav-link active" href="./">Home</a>
         </li>
+
         <?php
-        if ($_SESSION['user']['username']) { ?>
+        // Check if user is logged in safely
+        $isLoggedIn = isset($_SESSION['user']) && isset($_SESSION['user']['username']);
+        ?>
+
+        <?php if ($isLoggedIn): ?>
           <li class="nav-item">
             <a class="nav-link"
-              href="./server/requests.php?logout=true">Logout(<?php echo ucfirst($_SESSION['user']['username']) ?>)</a>
+              href="./server/requests.php?logout=true">
+              Logout (<?php echo ucfirst($_SESSION['user']['username']); ?>)
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="?ask=true">Ask A Question</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?u-id=<?php echo $_SESSION['user']['user_id'] ?>">My Questions</a>
+            <a class="nav-link" href="?u-id=<?php echo $_SESSION['user']['user_id']; ?>">My Questions</a>
           </li>
-        <?php } ?>
 
-        <?php
-        if (!$_SESSION['user']['username']) { ?>
+        <?php else: ?>
           <li class="nav-item">
             <a class="nav-link" href="?login=true">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="?signup=true">SignUp</a>
           </li>
-        <?php } ?>
+        <?php endif; ?>
 
         <li class="nav-item">
           <a class="nav-link" href="?latest=true">Latest Questions</a>
         </li>
       </ul>
     </div>
+
     <form class="d-flex" action="">
       <input class="form-control me-2" name="search" type="search" placeholder="Search questions">
       <button class="btn btn-outline-success" type="submit">Search</button>
